@@ -1,5 +1,7 @@
 using Endava.Products.Api.Services;
 using Endava.Products.Data;
+using Endava.Products.Data.Interfaces;
+using Endava.Products.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,8 @@ builder.Services.AddDbContext<ProductsDbContext>(options =>
 
 builder.Services.AddScoped<SeedingService>();
 
+builder.Services.AddScoped<IProductsRepository, ProductsRepostitory>();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -24,7 +28,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Crypto Exchange API v1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Products API v1");
         c.RoutePrefix = string.Empty;
     });
 }

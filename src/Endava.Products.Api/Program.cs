@@ -53,3 +53,6 @@ catch (Exception ex)
 }
 
 app.Run();
+
+// For testing purposes
+public partial class Program { }

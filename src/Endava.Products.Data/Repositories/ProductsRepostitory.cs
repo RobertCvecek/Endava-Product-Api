@@ -40,6 +40,7 @@ namespace Endava.Products.Data.Repositories
             return await query
                 .Select(p => new ProductDto
                 {
+                    Id = p.Id,
                     Name = p.Name,
                     Price = p.Price,
                     Category = new CategoryDto
@@ -49,6 +50,18 @@ namespace Endava.Products.Data.Repositories
                     },
                 })
                 .ToListAsync();
+        }
+
+        public Task<Product?> GetById(Guid id)
+        {
+            return db.Products.FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        public async Task Update(Product product)
+        {
+            db.Products.Update(product);
+
+            await db.SaveChangesAsync();
         }
     }
 }
